@@ -18,7 +18,7 @@ admin_route.use(bodyParser.urlencoded({ extended: true }))
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, path.join(__dirname, '../public/productImages'));
+        cb(null, path.join(__dirname, '../public/ProductImages'));
     },
     filename: function (req, file, cb) {
         const name = Date.now() + '-' + file.originalname;

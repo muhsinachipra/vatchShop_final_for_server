@@ -60,9 +60,9 @@ module.exports = {
                 croppedImage2Buffer = await convertBase64ToJPEG(croppedImageData2),
                 croppedImage3Buffer = await convertBase64ToJPEG(croppedImageData3),
 
-                fs.writeFileSync(path.join(__dirname, '../public/productImages', newProduct.productImage[0]), croppedImage1Buffer);
-            fs.writeFileSync(path.join(__dirname, '../public/productImages', newProduct.productImage[1]), croppedImage2Buffer);
-            fs.writeFileSync(path.join(__dirname, '../public/productImages', newProduct.productImage[2]), croppedImage3Buffer);
+                fs.writeFileSync(path.join(__dirname, '../public/ProductImages', newProduct.productImage[0]), croppedImage1Buffer);
+            fs.writeFileSync(path.join(__dirname, '../public/ProductImages', newProduct.productImage[1]), croppedImage2Buffer);
+            fs.writeFileSync(path.join(__dirname, '../public/ProductImages', newProduct.productImage[2]), croppedImage3Buffer);
 
             const productData = await newProduct.save();
 
@@ -179,10 +179,10 @@ module.exports = {
                 await convertBase64ToJPEG(croppedImageData3),
             ];
 
-            // Save the image files to the server (assuming 'public/productImages' is the destination)
-            fs.writeFileSync(path.join(__dirname, '../public/productImages', `image1_${id}.jpg`), updatedProductImages[0]);
-            fs.writeFileSync(path.join(__dirname, '../public/productImages', `image2_${id}.jpg`), updatedProductImages[1]);
-            fs.writeFileSync(path.join(__dirname, '../public/productImages', `image3_${id}.jpg`), updatedProductImages[2]);
+            // Save the image files to the server (assuming 'public/ProductImages' is the destination)
+            fs.writeFileSync(path.join(__dirname, '../public/ProductImages', `image1_${id}.jpg`), updatedProductImages[0]);
+            fs.writeFileSync(path.join(__dirname, '../public/ProductImages', `image2_${id}.jpg`), updatedProductImages[1]);
+            fs.writeFileSync(path.join(__dirname, '../public/ProductImages', `image3_${id}.jpg`), updatedProductImages[2]);
 
             const updatedProduct = await Product.findByIdAndUpdate(
                 id,
