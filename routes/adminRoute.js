@@ -89,8 +89,8 @@ admin_route.use((err, req, res, next) => {
     res.status(500).render("500");
 });
 
-admin_route.use((req, res, next) => {
-    res.status(404).render("404");
-})
+// admin_route.use((req, res, next) => {
+//     res.status(404).render("404");
+// })
 
 module.exports = admin_route

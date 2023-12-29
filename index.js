@@ -13,11 +13,11 @@ app.set('view engine','ejs')
 const path= require("path")
 app.use('/car',express.static(path.join(__dirname,'public')));
 
-const adminRoute= require("./routes/adminRoute")
-app.use('/admin',adminRoute)
-
 const userRoute=require("./routes/userRoute")
 app.use('/',userRoute)
+
+const adminRoute= require("./routes/adminRoute")
+app.use('/admin',adminRoute)
 
 
 app.listen(process.env.PORT,()=>{
