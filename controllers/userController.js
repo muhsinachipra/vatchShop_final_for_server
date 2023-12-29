@@ -5,7 +5,7 @@ const nodemailer = require('nodemailer');
 const bcrypt = require('bcrypt');
 const otpGenerator = require("otp-generator");
 const randomstring = require('randomstring');
-
+//code start here
 
 const securePassword = async (password) => {
     try {
@@ -55,6 +55,7 @@ const resetPasswordMail = async (username, email, token) => {
                 pass: process.env.SMTP_PASS,
             }
         })
+
 
         const mailOptions = {
             from: process.env.SMTP_USER,
