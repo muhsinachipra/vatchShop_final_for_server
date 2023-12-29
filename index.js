@@ -19,9 +19,9 @@ app.use('/', userRoute)
 const adminRoute = require("./routes/adminRoute")
 app.use('/admin', adminRoute)
 
-// app.use('*', (req, res) => {
-//     res.status(404).render(__dirname + '/views/users/404.ejs')
-// })
+app.use('*', (req, res) => {
+    res.status(404).render(__dirname + '/views/users/404.ejs')
+})
 
 app.listen(process.env.PORT, () => {
     console.log("......SERVER STARTED......");

@@ -85,12 +85,12 @@ admin_route.post('/editCoupon', couponController.editCoupon)
 admin_route.get('/500', auth.isAdminLogin, adminController.load500)
 admin_route.get('/404', auth.isAdminLogin, adminController.load404)
 
-// admin_route.use((err, req, res, next) => {
-//     res.status(500).render("500");
-// });
+admin_route.use((err, req, res, next) => {
+    res.status(500).render("500");
+});
 
-// admin_route.use((req, res, next) => {
-//     res.status(404).render("404");
-// })
+admin_route.use((req, res, next) => {
+    res.status(404).render("404");
+})
 
 module.exports = admin_route
