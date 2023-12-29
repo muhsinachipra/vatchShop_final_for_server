@@ -10,7 +10,7 @@ const Wallet = require('../models/walletModel');
 
 const { ObjectId } = require('mongoose').Types;
 
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const { name } = require('ejs');
 const path = require("path")
 

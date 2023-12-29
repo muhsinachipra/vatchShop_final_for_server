@@ -2,7 +2,7 @@ const User = require('../models/userModel');
 const Product = require('../models/productModel');
 const Category = require('../models/categoryModel');
 const nodemailer = require('nodemailer');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const otpGenerator = require("otp-generator");
 const randomstring = require('randomstring');
 //code start here

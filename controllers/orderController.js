@@ -12,7 +12,7 @@ const axios = require('axios');
 const mongoose = require('mongoose');
 const { ObjectId } = require('mongoose').Types;
 
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const { name } = require('ejs');
 const path = require("path")
 
