@@ -1,0 +1,234 @@
+<%- include('./layouts/header.ejs') %>
+  <%- include('./layouts/sideBar.ejs') %>
+    <%- include('./layouts/navBar.ejs') %>
+
+
+      <div class="main-panel">
+        <div class="content-wrapper">
+
+          <div class="row">
+
+            <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-9">
+                      <div class="d-flex align-items-center align-self-start">
+                        <h3 class="mb-0">₹<%= totalRevenue.toFixed(1) %>
+                        </h3>
+                        <!-- Assuming totalRevenue is in currency format, adjust the formatting as needed -->
+                        <p class="text-success ml-2 mb-0 font-weight-medium">+3.5%</p>
+                      </div>
+                    </div>
+                    <div class="col-3">
+                      <div class="icon icon-box-success ">
+                        <span class="mdi mdi-arrow-top-right icon-item"></span>
+                      </div>
+                    </div>
+                  </div>
+                  <h6 class="text-muted font-weight-normal">Total Revenue</h6>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-9">
+                      <div class="d-flex align-items-center align-self-start">
+                        <h3 class="mb-0">
+                          <%= totalUsers %>
+                        </h3>
+                        <p class="text-success ml-2 mb-0 font-weight-medium">+11%</p>
+                      </div>
+                    </div>
+                    <div class="col-3">
+                      <div class="icon icon-box-success">
+                        <span class="mdi mdi-arrow-top-right icon-item"></span>
+                      </div>
+                    </div>
+                  </div>
+                  <h6 class="text-muted font-weight-normal">Total Users</h6>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-9">
+                      <div class="d-flex align-items-center align-self-start">
+                        <h3 class="mb-0">
+                          <%= totalOrders %>
+                        </h3>
+                        <p class="text-danger ml-2 mb-0 font-weight-medium">-2.4%</p>
+                      </div>
+                    </div>
+                    <div class="col-3">
+                      <div class="icon icon-box-danger">
+                        <span class="mdi mdi-arrow-bottom-left icon-item"></span>
+                      </div>
+                    </div>
+                  </div>
+                  <h6 class="text-muted font-weight-normal">Total Orders</h6>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-9">
+                      <div class="d-flex align-items-center align-self-start">
+                        <h3 class="mb-0">₹<%= averageOrderValue.toFixed(1) %>
+                        </h3>
+                        <!-- Assuming averageOrderValue is in currency format, adjust the formatting as needed -->
+                        <p class="text-success ml-2 mb-0 font-weight-medium">+3.5%</p>
+                      </div>
+                    </div>
+                    <div class="col-3">
+                      <div class="icon icon-box-success ">
+                        <span class="mdi mdi-arrow-top-right icon-item"></span>
+                      </div>
+                    </div>
+                  </div>
+                  <h6 class="text-muted font-weight-normal">Average Order Value</h6>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="row">
+
+            <div class="col-lg-6 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Top Selling Category</h4>
+                  <canvas id="doughnutChart" style="height:250px"></canvas>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-6 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Top Selling Product</h4>
+                  <canvas id="productBarChart" style="height:250px"></canvas>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+        <!-- content-wrapper ends -->
+
+        <!-- Top Selling Category -->
+        <script>
+          $(function () {
+              var topCategoriesData = <%- JSON.stringify(top3Categories) %>; // Parse the JSON data
+      
+              // Extract labels and revenues from the data
+              var categoryLabels = topCategoriesData.map(category => category.name);
+              var categoryRevenues = topCategoriesData.map(category => category.revenue);
+      
+              // Now use categoryLabels and categoryRevenues to dynamically configure your chart
+              var doughnutChartCanvas = $("#doughnutChart").get(0).getContext("2d");
+              var doughnutChart = new Chart(doughnutChartCanvas, {
+                  type: 'doughnut',
+                  data: {
+                      datasets: [{
+                          data: categoryRevenues,
+                          backgroundColor: [
+                              'rgba(255, 99, 132, 0.5)',
+                              'rgba(54, 162, 235, 0.5)',
+                              'rgba(255, 206, 86, 0.5)',
+                          ],
+                          borderColor: [
+                              'rgba(255,99,132,1)',
+                              'rgba(54, 162, 235, 1)',
+                              'rgba(255, 206, 86, 1)',
+                          ],
+                      }],
+                      labels: categoryLabels,
+                  },
+                  options: {
+                      responsive: true,
+                      animation: {
+                          animateScale: true,
+                          animateRotate: true,
+                      },
+                  },
+              });
+          });
+      </script>
+        <!-- Top Selling Category -->
+
+        <!-- Top Selling Products -->
+        <script>
+          $(function () {
+            var topProductsData = <%- JSON.stringify(top3Products) %>; // Parse the JSON data
+        
+            // Extract labels and revenues from the data
+            var productLabels = topProductsData.map(product => product.name);
+            var productRevenues = topProductsData.map(product => product.revenue);
+        
+            // Now use productLabels and productRevenues to dynamically configure your bar chart
+            var productBarChartCanvas = $("#productBarChart").get(0).getContext("2d");
+            var productBarChart = new Chart(productBarChartCanvas, {
+              type: 'bar',
+              data: {
+                labels: productLabels,
+                datasets: [{
+                  label: 'Revenue',
+                  data: productRevenues,
+                  backgroundColor: [
+                    'rgba(255, 99, 132, 0.5)',
+                    'rgba(54, 162, 235, 0.5)',
+                    'rgba(255, 206, 86, 0.5)',
+                  ],
+                  borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                  ],
+                  borderWidth: 1,
+                }],
+              },
+              options: {
+                responsive: true,
+                scales: {
+                  yAxes: [{
+                    ticks: {
+                      beginAtZero: true,
+                    },
+                    gridLines: {
+                      color: "rgba(204, 204, 204,0.1)",
+                    },
+                  }],
+                  xAxes: [{
+                    gridLines: {
+                      color: "rgba(204, 204, 204,0.1)",
+                    },
+                  }],
+                },
+                legend: {
+                  display: false,
+                },
+                elements: {
+                  point: {
+                    radius: 0,
+                  },
+                },
+              },
+            });
+          });
+        </script>
+        
+        <!-- Top Selling Products -->
+
+        <%- include('./layouts/footer.ejs') %>

@@ -1,0 +1,87 @@
+<%- include('./layouts/header.ejs') %>
+    <%- include('./layouts/sideBar.ejs') %>
+        <%- include('./layouts/navBar.ejs') %>
+
+            <div class="main-panel">
+                <div class="content-wrapper">
+
+                    <div class="col-lg-12 grid-margin stretch-card">
+                        <div class="card">
+                            <div class="card-body">
+                                <h2 class="card-title" style="text-align: center;">MANAGE ORDER</h2>
+                                <div class="table-responsive">
+                                    <table class="table table-dark">
+
+
+                                        <thead>
+                                            <tr>
+                                                <th>Product Name</th>
+                                                <th>Image</th>
+                                                <th>Price</th>
+                                                <th>Quantity</th>
+                                                <th>Expected Delivery</th>
+                                                <th>Status</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+
+                                        <% order.products.forEach((product, index)=> { %>
+                                            <tr>
+                                                <td>
+                                                    <%= product.productId.productName %>
+                                                </td>
+                                                <td>
+                                                    <% product.productId.productImage.forEach(image=> { %>
+                                                        <img src="/car/ProductImages/<%= image %>">
+                                                        <% }); %>
+                                                </td>
+                                                <td>
+                                                    ₹ <%= product.price %>
+                                                </td>
+                                                <td>
+                                                    <%= product.quantity %>
+                                                </td>
+                                                <td>
+                                                    <%= order.expectedDelivery.toLocaleDateString('en-US', {
+                                                        month: 'short' , day: 'numeric' , year: 'numeric' }) %>
+                                                </td>
+                                                <td>
+                                                    <div class="col-sm-4 my-1">
+
+                                                        <form action="/admin/updateOrderStatus/<%= product._id %>"
+                                                            method="post">
+                                                            <select name="status" id="status">
+                                                                <option value="Placed" <%=product.orderStatus==='Placed'
+                                                                    ? 'selected' : '' %>>Placed</option>
+                                                                <option value="Shipped" <%=product.orderStatus==='Shipped'
+                                                                    ? 'selected' : '' %>>Shipped</option>
+                                                                <option value="Out for delivery"
+                                                                    <%=product.orderStatus==='Out for delivery' ? 'selected'
+                                                                    : '' %>>Out for delivery</option>
+                                                                <option value="Delivered"
+                                                                    <%=product.orderStatus==='Delivered' ? 'selected' : '' %>
+                                                                    >Delivered</option>
+                                                                <option value="Cancelled"
+                                                                    <%=product.orderStatus==='Cancelled' ? 'selected' : '' %>
+                                                                    >Cancelled</option>
+                                                            </select>
+                                                            <button type="submit">Update Status</button>
+                                                        </form>
+
+                                                    </div>
+                                                </td>
+
+                                            </tr>
+                                            <% }); %>
+
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+
+            <%- include('./layouts/footer.ejs') %>

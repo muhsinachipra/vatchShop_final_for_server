@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>OTP Verification - SHOPIFY</title>
+
+    <!-- Include necessary CSS and JS files -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/car/userAssets/login/css/style.css">
+
+    <!-- Additional CSS and JS specific to the OTP page if needed -->
+
+</head>
+
+<body>
+    <section class="ftco-section bg2">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-7 col-lg-5">
+                    <div class="wrap">
+                        <!-- <div class="img" style="background-image: url(car/userAssets/login/images/bg-1.jpg);"></div> -->
+                        <div class="login-wrap p-4 p-md-5">
+                            <div class="d-flex">
+                                <div class="w-100">
+                                    <h3 class="mb-4">OTP Verification</h3>
+                                </div>
+                            </div>
+                            <form action="otp" method="post">
+                                <div class="form-group">
+                                    <label>Enter the OTP sent to your mail</label>
+                                    <input type="text" class="form-control" id="otp" name="otp" required>
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit"
+                                        class="form-control btn btn-primary rounded submit px-3">Verify</button>
+                                </div>
+                            </form>
+                            <form action="resendOTP" method="post">
+                                <div class="text-center">
+                                    <button id="resendButton" type="submit" class="form-control btn btn-primary rounded submit px-3" disabled>
+                                        Resend OTP
+                                    </button>
+                                </div>
+                            </form>
+                            
+
+                            <!-- Add this div to display the timer -->
+                            <div id="timer">Time remaining: <span id="countdown">120</span> seconds</div>
+
+
+                            <% if (typeof message !=='undefined' ) { %>
+                                <p class="successfully">
+                                    <%= message %>
+                                </p>
+                                <% } %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Include necessary JavaScript files -->
+    <script src="/car/userAssets/login/js/jquery.min.js"></script>
+    <script src="/car/userAssets/login/js/popper.js"></script>
+    <script src="/car/userAssets/login/js/bootstrap.min.js"></script>
+    <script src="/car/userAssets/login/js/main.js"></script>
+    <!-- Additional scripts if needed for OTP functionality -->
+
+    <!-- Add the countdown logic -->
+    <script>
+        // Set the initial countdown value
+        let countdownValue = 120;
+
+        // Function to update the countdown display
+        function updateCountdown() {
+            document.getElementById('countdown').textContent = countdownValue;
+        }
+
+        // Function to start the countdown
+        function startCountdown() {
+            // Update the countdown display initially
+            updateCountdown();
+
+            // Update the countdown every second
+            const countdownInterval = setInterval(function () {
+                countdownValue--;
+
+                // Update the countdown display
+                updateCountdown();
+
+                // If countdown reaches 0, stop the interval and enable the "Resend OTP" button
+                if (countdownValue === 0) {
+                    clearInterval(countdownInterval);
+                    document.getElementById('resendButton').removeAttribute('disabled');
+                }
+            }, 1000);
+        }
+
+        // Call the startCountdown function when the page is loaded
+        document.addEventListener('DOMContentLoaded', startCountdown);
+    </script>
+
+</body>
+
+</html>

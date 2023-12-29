@@ -1,0 +1,120 @@
+<%- include('./layouts/header.ejs') %>
+    <%- include('./layouts/sideBar.ejs') %>
+        <%- include('./layouts/navBar.ejs') %>
+
+
+            <div class="main-panel">
+                <div class="content-wrapper">
+
+
+
+                    <div class="col-lg-12 grid-margin stretch-card">
+                        <div class="card">
+                            <div class="card-body">
+                                <h2 class="card-title" style="text-align: center;">PRODUCTS</h2>
+                                <div class="table-responsive">
+                                    <table id="search-table" class="table table-dark">
+                                        <thead>
+                                            <tr>
+                                                <th>Product Name</th>
+                                                <th>Category</th>
+                                                <th>Price</th>
+                                                <th>Offer</th>
+                                                <th>Offer Price</th>
+                                                <th>Stock</th>
+                                                <th>Description</th>
+                                                <th>Images</th>
+                                                <th> Edit </th>
+                                                <th> Action </th>
+                                            </tr>
+                                        </thead>
+                                        <% for(let i=0;i<data.length;i++){%>
+                                            <tr>
+                                                <td>
+                                                    <%= data[i].productName %>
+                                                </td>
+                                                <td>
+                                                    <%= data[i].productCategory.categoryName %>
+                                                </td>
+                                                <td>
+                                                    <%= data[i].productPrice %>
+                                                </td>
+                                                <td>
+                                                    <%= data[i].productOfferPercentage %> %
+                                                </td>
+                                                <td>
+                                                    <%= data[i].discountedPrice %>
+                                                </td>
+                                                <td>
+                                                    <%= data[i].productStock %>
+                                                </td>
+                                                <td>
+                                                    <%= data[i].productDescription %>
+                                                </td>
+
+
+                                                <td>
+                                                    <% if (data[i].productImage && data[i].productImage.length > 0) { %>
+                                                        <% data[i].productImage.forEach(croppedImage => { %>
+                                                            <img src="/car/productImages/<%= croppedImage %>">
+                                                        <% }); %>
+                                                    <% } else { %>
+                                                        <!-- Handle the case where productImage is undefined or empty -->
+                                                        No images available
+                                                    <% } %>
+                                                </td>
+                                                
+                                                <td> <a href="/admin/edit_product?id=<%= data[i]._id%>">
+                                                        <button type="button"
+                                                            class="btn btn-outline-secondary btn-icon-text">
+                                                            Edit <i class="mdi mdi-file-check btn-icon-append"></i>
+                                                        </button>
+                                                    </a></td>
+                                                <td>
+                                                    <% if (data[i].isListed===false) { %>
+                                                        <a href="/admin/unlist_product?id=<%= data[i]._id %>">
+                                                            <button type="button"
+                                                                class="btn btn-inverse-success btn-fw">
+                                                                List
+                                                            </button>
+                                                        </a>
+                                                        <% } else { %>
+                                                            <a href="/admin/unlist_product?id=<%= data[i]._id %>">
+                                                                <button type="button"
+                                                                    class="btn btn-inverse-danger btn-fw">
+                                                                    Unlist
+                                                                </button>
+                                                            </a>
+                                                            <% } %>
+
+                                                                <a href="/admin/delete_product?id=<%= data[i]._id %>">
+                                                                    <button type="button"
+                                                                        class="btn btn-outline-danger btn-fw">Delete</button>
+                                                                </a>
+                                                </td>
+                                            </tr>
+                                            <% }; %>
+                                    </table>
+                                </div>
+
+                                <div id="paginationButtons" class="pagination mt-3" style="display: flex; justify-content: center;">
+                                    <% for (let i=1; i <=totalPages; i++) { %>
+                                        <a href="?page=<%= i %>">
+                                            <button type="button" class="btn btn-inverse-primary btn-rounded btn-icon">
+                                                <%= i %>
+                                            </button>
+                                        </a>
+                                        <% } %>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+
+            <script src="/car/adminAssets/assets/js/clientSideSearch.js"></script>
+
+            <%- include('./layouts/footer.ejs') %>
