@@ -89,9 +89,9 @@ user_route.get('/wallet', auth.isUserLogin, walletController.loadAddWallet);
 user_route.post('/addToWallet', auth.isUserLogin, walletController.addToWallet);
 user_route.post("/verifyWalletPayment", walletController.verifyWalletPayment);
 
-user_route.use((err, req, res, next) => {
-    res.status(500).render("500");
-});
+// user_route.use((err, req, res, next) => {
+//     res.status(500).render("500");
+// });
 
 // user_route.use((req, res, next) => {
 //     res.status(404).render("404");
