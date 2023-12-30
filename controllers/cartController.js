@@ -13,7 +13,6 @@ const path = require("path")
 module.exports = {
     addToCart: async (req, res, next) => {
         try {
-            console.log('entered addToCart')
             if (req.session.userId) {
                 const productId = req.body.id;
                 const userId = req.session.userId;
@@ -29,7 +28,6 @@ module.exports = {
                 }
 
                 if (productData.productStock == 0) {
-                    console.log('Out of stock');
                     return res.json({ outofstock: true });
                 }
 
@@ -44,10 +42,7 @@ module.exports = {
                 if (existingProductIndex !== -1) {
                     const existingProduct = userCart.items[existingProductIndex];
 
-                    console.log('Product Stock:', productData.productStock);
-                    console.log('Existing Quantity:', existingProduct.quantity);
                     if (productData.productStock <= existingProduct.quantity) {
-                        console.log('Out of stock');
                         return res.json({ outofstock: true });
                     } else {
                         existingProduct.quantity += 1;

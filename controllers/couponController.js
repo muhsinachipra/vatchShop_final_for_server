@@ -35,7 +35,6 @@ module.exports = {
             if (couponData) {
                 res.render('viewCoupon', { couponData, currentPage: page, totalPages: totalPages })
             } else {
-                console.log('couponData is null or undefined');
                 res.render('viewCoupon', { couponData: [] });
             }
 
