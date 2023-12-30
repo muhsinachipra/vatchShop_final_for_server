@@ -79,7 +79,16 @@ module.exports = {
                 });
             }
 
-            const userWallet = await Wallet.findOne({ userId: req.session.userId });
+            // Find or create user wallet
+            let userWallet = await Wallet.findOne({ userId: req.session.userId });
+
+            if (!userWallet) {
+                userWallet = new Wallet({
+                    userId: req.session.userId,
+                    totalAmount: 0, // Set the initial totalAmount to 0
+                    walletHistory: [],
+                });
+            }
 
             let transactionId = randomstring.generate(10);
 
@@ -91,7 +100,8 @@ module.exports = {
             });
 
             await userWallet.save();
-            order.totalAmount -= productPrice
+
+            order.totalAmount -= productPrice;
 
             let productForStockIncrease;
             let canceledQuantity;
@@ -99,8 +109,8 @@ module.exports = {
             order.products.forEach(product => {
                 if (product._id.toString() === productId.toString()) {
                     product.orderStatus = 'Cancelled';
-                    productForStockIncrease = product.productId
-                    canceledQuantity = product.quantity
+                    productForStockIncrease = product.productId;
+                    canceledQuantity = product.quantity;
                 }
             });
 
@@ -120,8 +130,8 @@ module.exports = {
     loadAdminOrder: async (req, res, next) => {
         try {
 
-            const page = req.query.page || 1; 
-            const pageSize = 4; 
+            const page = req.query.page || 1;
+            const pageSize = 4;
 
             const skip = (page - 1) * pageSize;
 
