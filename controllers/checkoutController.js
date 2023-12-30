@@ -230,7 +230,7 @@ module.exports = {
 
                         return {
                             updateOne: {
-                                filter: { _id: productId, productStock: { $gte: quantity } }, 
+                                filter: { _id: productId, productStock: { $gte: quantity } },
                                 update: { $inc: { productStock: -quantity } },
                             },
                         };
@@ -251,7 +251,7 @@ module.exports = {
             } else if (paymentOption === 'Wallet') {
                 const userWallet = await Wallet.findOne({ userId });
                 if (!userWallet) {
-                    return res.status(400).json({ error: 'wallet not found' });
+                    return res.status(400).json({ error: 'wallet is empty' });
                 }
 
                 if (userWallet.totalAmount < numericTotal) {
